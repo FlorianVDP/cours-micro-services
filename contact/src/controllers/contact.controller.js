@@ -2,8 +2,20 @@ const Contact = require("../models/Contact");
 
 
 exports.findAll = async (req, res) => {
-    const contactQuery = await Contact.findAll();
-    res.send(contactQuery);
+    console.log(req.query.idEntreprise)
+    if (req.query.idEntreprise){
+
+        const contactQuery = await Contact.findAll({
+            where: {
+                idEntreprise: req.query.idEntreprise
+            }
+        });
+        res.send(contactQuery);
+    }else{
+        const contactQuery = await Contact.findAll();
+        res.send(contactQuery);
+    }
+
 }
 exports.findOne = async (req, res) => {
     const contactQuery = await Contact.findByPk(req.params.id);
